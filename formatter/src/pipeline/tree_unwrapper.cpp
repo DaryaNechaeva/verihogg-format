@@ -153,7 +153,7 @@ class SVParser {
     }
     consumeInto(line);
     int depth = 1;
-    while (pos_ < tokens_.size() && depth > 0) {
+    while (pos_ < tokens_.size() && !at(TK::EndOfFile) && depth > 0) {
       if (at(open)) {
         ++depth;
       } else if (at(close)) {

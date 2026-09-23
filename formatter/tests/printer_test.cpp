@@ -444,11 +444,6 @@ TEST_F(PrinterTest, PreservesCommentAfterFinalToken) {
             "module m;\nendmodule\n// tail\n\n");
 }
 
-TEST_F(PrinterTest, PreservesCommentOnlyFile) {
-  EXPECT_EQ(formatText("// only comment\n"), "// only comment\n");
-  EXPECT_EQ(formatText("/* only comment */"), "/* only comment */");
-}
-
 TEST_F(PrinterTest, PreservesWhitespaceAroundInlineBlockComments) {
   EXPECT_EQ(formatText("module m (); assign y = a/*tight*/b; "
                        "assign z = a /*left*/b; assign w = a/*right*/ b; "
@@ -600,4 +595,45 @@ TEST_F(PrinterTest, DoesNotInsertBeginEndDuringNormalization) {
             "  always_ff @(posedge clk)\n"
             "    if (en) q <= d;\n"
             "endmodule\n");
+}
+
+TEST_F(PrinterTest, MultilineLeadingBlockCommentIsStable) {
+  const std::string source =
+      "module m;\n/* explanation\n * continued\n */\ninitial x = 1; endmodule";
+  const auto once = formatText(source);
+  EXPECT_EQ(once,
+            "module m;\n  /* explanation\n * continued\n */\n"
+            "  initial x = 1;\nendmodule\n");
+  EXPECT_EQ(formatText(once), once) << "Input: " << source;
+}
+
+TEST_F(PrinterTest, RemovesLeadingBlankLinesConsistently) {
+  const std::string source = "\n\n/* explanation */\nmodule m; endmodule";
+  const auto once = formatText(source);
+  EXPECT_EQ(once, "/* explanation */\nmodule m;\nendmodule\n");
+  EXPECT_EQ(formatText(once), once) << "Input: " << source;
+}
+
+TEST_F(PrinterTest, PreservesCommentAfterLastToken) {
+  EXPECT_EQ(formatText("module m; endmodule // last comment"),
+            "module m;\nendmodule // last comment\n");
+}
+
+TEST_F(PrinterTest, PreservesTrailingBlockAndLineCommentOrder) {
+  const std::string source = "x = 1; /* block */ // line\n";
+  const auto once = formatText(source);
+  EXPECT_EQ(once, source);
+  EXPECT_EQ(formatText(once), once);
+}
+
+TEST_F(PrinterTest, TrailingMultilineBlockCommentUsesConfiguredLineEndings) {
+  auto style = format::FormatStyle::defaults();
+  style.line_terminator = format::LineTerminator::kCrLf;
+  const auto once = formatText("x = 1; /* first\n second */", style);
+  EXPECT_EQ(once, "x = 1; /* first\r\n second */\r\n");
+  EXPECT_EQ(formatText(once, style), once);
+}
+
+TEST_F(PrinterTest, PreservesCommentOnlyFile) {
+  EXPECT_EQ(formatText("/* explanation */"), "/* explanation */\n");
 }
