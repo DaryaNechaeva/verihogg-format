@@ -137,6 +137,7 @@ class SVParser {
     if (line_.tokens.empty()) {
       return;
     }
+    line_.nesting_level = indent_level_;
     line_.indentation_spaces =
         startsWithCompilerDirective(line_)
             ? 0
@@ -560,7 +561,11 @@ class SVParser {
     const size_t start = pos_;
     warnUnsupported(peek(), unsupportedConstructName(peek()));
     if (!recovery_enabled_) {
+      const size_t first_line = lines_.size();
       consumeUntilSemi();
+      for (size_t i = first_line; i < lines_.size(); ++i) {
+        lines_.at(i).is_fallback = true;
+      }
       return;
     }
     emitOpaque(start, findOuterBoundary(start));
