@@ -377,7 +377,9 @@ struct Indent {
     }
   }
 
-  preserveBlankLines(newline_count, state);
+  if (token.kind != slang::parsing::TokenKind::EndOfFile) {
+    preserveBlankLines(newline_count, state);
+  }
   effect.spaces_after_inline_comments = std::move(pending_whitespace);
   return effect;
 }
