@@ -207,6 +207,15 @@ auto TokenAnnotator::determineTokenTypes(
         ft.type = TokenType::kEndClassKeyword;
         continue;
 
+      case TK::PackageKeyword:
+        ft.type = TokenType::kPackageKeyword;
+        next_is_module_name = true;
+        continue;
+
+      case TK::EndPackageKeyword:
+        ft.type = TokenType::kEndPackageKeyword;
+        continue;
+
       case TK::GenerateKeyword:
         ft.type = TokenType::kGenerateKeyword;
         continue;
@@ -726,6 +735,7 @@ auto implBreakPenalty(TokenPair p) -> size_t {
     case TokenType::kEndClassKeyword:
     case TokenType::kEndGenerateKeyword:
     case TokenType::kEndCaseKeyword:
+    case TokenType::kEndPackageKeyword:
       return true;
     default:
       return false;
