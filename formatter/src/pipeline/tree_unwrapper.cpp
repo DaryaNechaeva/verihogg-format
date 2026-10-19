@@ -372,6 +372,7 @@ class SVParser {
       case TK::ImportKeyword:
       case TK::ExportKeyword:
       case TK::StaticKeyword:
+      case TK::InterfaceKeyword:
       case TK::AlwaysKeyword:
       case TK::AlwaysCombKeyword:
       case TK::AlwaysFFKeyword:
@@ -891,6 +892,13 @@ class SVParser {
     // dispatched by TokenKind in the switch below.
     if (looksLikeInstantiation()) {
       parseInstantiation();
+      return;
+    }
+
+    // `interface class` is a class-like block closed by `endclass`, not by
+    // `endinterface`, so it must not be dispatched through the interface spec.
+    if (at(TK::InterfaceKeyword) && at(TK::ClassKeyword, 1)) {
+      parseNamedBlock(TK::EndClassKeyword);
       return;
     }
 
