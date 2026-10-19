@@ -254,6 +254,37 @@ TEST_F(TreeUnwrapperTest, BodyDeclarationsWithKeywordsUseTabularAlignment) {
   EXPECT_EQ(snap(lines), expected);
 }
 
+TEST_F(TreeUnwrapperTest, ImportStatementInModuleBodyIsOwnLine) {
+  auto result = parseWithDiagnostics(
+      "module m;\n"
+      "import test_pkg::*;\n"
+      "endmodule\n");
+
+  const std::vector<LineSnap> expected = {
+      L(0, PP::kFitOnLineElseExpand,
+        {
+            N(TK::ModuleKeyword, "module"),
+            N(TK::Identifier, "m"),
+            N(TK::Semicolon, ";"),
+        }),
+      L(kIndent, PP::kAlwaysExpand,
+        {
+            N(TK::ImportKeyword, "import"),
+            N(TK::Identifier, "test_pkg"),
+            N(TK::DoubleColon, "::"),
+            N(TK::Star, "*"),
+            N(TK::Semicolon, ";"),
+        }),
+      L(0, PP::kAlwaysExpand,
+        {
+            N(TK::EndModuleKeyword, "endmodule"),
+        }),
+  };
+
+  EXPECT_EQ(snap(result.lines), expected);
+  EXPECT_TRUE(result.warnings.empty());
+}
+
 TEST_F(TreeUnwrapperTest, ParameterizedInstantiationIsParsedBeforeFallback) {
   auto lines = parse("module m (); child #(8) u_child (clk, rst_n); endmodule");
 

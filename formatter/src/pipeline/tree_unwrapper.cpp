@@ -349,7 +349,8 @@ class SVParser {
     if (block_stack_.empty()) {
       return kind == TK::ModuleKeyword || kind == TK::MacromoduleKeyword ||
              kind == TK::InterfaceKeyword || kind == TK::PackageKeyword ||
-             kind == TK::ProgramKeyword || kind == TK::Directive;
+             kind == TK::ProgramKeyword || kind == TK::ImportKeyword ||
+             kind == TK::Directive;
     }
     switch (kind) {
       case TK::InputKeyword:
@@ -367,6 +368,7 @@ class SVParser {
       case TK::LocalParamKeyword:
       case TK::TypedefKeyword:
       case TK::AssignKeyword:
+      case TK::ImportKeyword:
       case TK::AlwaysKeyword:
       case TK::AlwaysCombKeyword:
       case TK::AlwaysFFKeyword:
@@ -958,6 +960,7 @@ class SVParser {
         break;
 
       case TK::AssignKeyword:
+      case TK::ImportKeyword:
       case TK::InputKeyword:
       case TK::OutputKeyword:
       case TK::InOutKeyword:

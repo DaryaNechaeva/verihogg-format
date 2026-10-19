@@ -214,6 +214,10 @@ auto TokenAnnotator::determineTokenTypes(gsl::span<FormatToken> tokens) const
         ft.type = TokenType::kEndPackageKeyword;
         continue;
 
+      case TK::ImportKeyword:
+        ft.type = TokenType::kImportKeyword;
+        continue;
+
       case TK::GenerateKeyword:
         ft.type = TokenType::kGenerateKeyword;
         continue;
@@ -302,6 +306,10 @@ auto TokenAnnotator::determineTokenTypes(gsl::span<FormatToken> tokens) const
 
       case TK::Dot:
         ft.type = TokenType::kDot;
+        continue;
+
+      case TK::DoubleColon:
+        ft.type = TokenType::kGeneric;
         continue;
 
       case TK::Hash:
@@ -622,7 +630,8 @@ auto implSpacesRequired(TokenPair p) -> size_t {
   if (left.type == TokenType::kHash) {
     return 0;
   }
-  if (left.type == TokenType::kDot || right.type == TokenType::kDot) {
+  if (left.type == TokenType::kDot || right.type == TokenType::kDot ||
+      lk == TK::DoubleColon || rk == TK::DoubleColon) {
     return 0;
   }
   if (left.type == TokenType::kAtSign) {
@@ -642,7 +651,8 @@ auto implBreakPenalty(TokenPair p) -> size_t {
       left.type == TokenType::kAssignmentOperator) {
     return Penalty::kSoft;
   }
-  if (left.type == TokenType::kDot || left.type == TokenType::kHash) {
+  if (left.type == TokenType::kDot || left.type == TokenType::kHash ||
+      left.token.kind == TK::DoubleColon) {
     return Penalty::kHard;
   }
   if (right.balancing == GroupBalancing::kClose) {

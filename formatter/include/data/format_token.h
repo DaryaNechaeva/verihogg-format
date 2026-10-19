@@ -95,6 +95,7 @@ enum class TokenType : uint8_t {
   kIntegerBase,
   kEdgeKeyword,
   kAssignKeyword,
+  kImportKeyword,
   kDirective,
   kTernaryOperator,
   kSvaBinaryOperator,
