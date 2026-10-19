@@ -551,6 +551,15 @@ auto TokenAnnotator::determineTokenTypes(gsl::span<FormatToken> tokens) const
         ft.type = TokenType::kIntegerBase;
         continue;
 
+      // `and`/`or`/`xor` are array reduction methods when they follow a dot
+      // (e.g. `b.and`); elsewhere they are gate primitives / event separators.
+      case TK::OrKeyword:
+      case TK::AndKeyword:
+      case TK::XorKeyword:
+        ft.type =
+            (prev_kind == TK::Dot) ? TokenType::kGeneric : TokenType::kUnknown;
+        continue;
+
       default:
         ft.type = TokenType::kUnknown;
         continue;
