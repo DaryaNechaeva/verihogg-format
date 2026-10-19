@@ -532,6 +532,7 @@ auto TokenAnnotator::determineTokenTypes(
       case TK::LocalParamKeyword:
       case TK::GenVarKeyword:
       case TK::ReturnKeyword:
+      case TK::StaticKeyword:
         ft.type = TokenType::kGeneric;
         continue;
 
