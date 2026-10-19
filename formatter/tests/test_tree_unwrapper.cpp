@@ -182,7 +182,6 @@ TEST_F(TreeUnwrapperTest, ModuleHeaderWithoutPorts) {
         {
             N(TK::EndModuleKeyword, "endmodule"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_EQ(snap(lines), expected);
@@ -238,7 +237,6 @@ TEST_F(TreeUnwrapperTest, ThreePortsBecomeThreeLines) {
         {
             N(TK::EndModuleKeyword, "endmodule"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_EQ(snap(lines), expected);
@@ -276,7 +274,6 @@ TEST_F(TreeUnwrapperTest, BodyDeclarationsWithKeywordsUseTabularAlignment) {
         {
             N(TK::EndModuleKeyword, "endmodule"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_EQ(snap(lines), expected);
@@ -331,7 +328,6 @@ TEST_F(TreeUnwrapperTest, ParameterizedInstantiationIsParsedBeforeFallback) {
         {
             N(TK::EndModuleKeyword, "endmodule"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_EQ(snap(lines), expected);
@@ -393,7 +389,6 @@ TEST_F(TreeUnwrapperTest, MprfConditionalPortsKeepDirectivesAsLines) {
             N(TK::Colon, ":"),
             N(TK::Identifier, "scr1_pipe_mprf"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_EQ(snap(lines), expected);
@@ -437,7 +432,6 @@ TEST_F(TreeUnwrapperTest, PortListKeepsUnknownBacktickAsMacroUsage) {
         {
             N(TK::EndModuleKeyword, "endmodule"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_EQ(snap(lines), expected);
@@ -523,7 +517,6 @@ TEST_F(TreeUnwrapperTest, MprfRamAttributeDeclarationsStayFlat) {
         {
             N(TK::EndModuleKeyword, "endmodule"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_EQ(snap(lines), expected);
@@ -585,7 +578,6 @@ TEST_F(TreeUnwrapperTest, ConditionalModuleBranchesShareEndmodule) {
         {
             N(TK::EndModuleKeyword, "endmodule"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_TRUE(result.warnings.empty());
@@ -669,7 +661,6 @@ TEST_F(TreeUnwrapperTest,
         {
             N(TK::EndModuleKeyword, "endmodule"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_TRUE(result.warnings.empty());
@@ -720,7 +711,6 @@ TEST_F(TreeUnwrapperTest, AlwaysFFIsOwnLine) {
         {
             N(TK::EndModuleKeyword, "endmodule"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_EQ(snap(lines), expected);
@@ -821,7 +811,6 @@ TEST_F(TreeUnwrapperTest, ConditionalAlwaysFFBranchesShareBeginEndBody) {
         {
             N(TK::EndModuleKeyword, "endmodule"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_TRUE(result.warnings.empty());
@@ -940,7 +929,6 @@ TEST_F(TreeUnwrapperTest, MprfResetAlwaysFFWithAggregateLiteral) {
         {
             N(TK::EndModuleKeyword, "endmodule"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_EQ(snap(lines), expected);
@@ -1029,7 +1017,6 @@ TEST_F(TreeUnwrapperTest, MprfSimulationAssertionStaysSingleStatementLine) {
         {
             N(TK::EndModuleKeyword, "endmodule"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_EQ(snap(lines), expected);
@@ -1099,7 +1086,6 @@ TEST_F(TreeUnwrapperTest, LabeledAssertionElseBeginParsesActionBlock) {
         {
             N(TK::EndModuleKeyword, "endmodule"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_TRUE(result.warnings.empty());
@@ -1140,7 +1126,6 @@ TEST_F(TreeUnwrapperTest, BeginEndAreOwnLines) {
         {
             N(TK::EndModuleKeyword, "endmodule"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_EQ(snap(lines), expected);
@@ -1197,7 +1182,6 @@ TEST_F(TreeUnwrapperTest, IfIsOwnLine) {
         {
             N(TK::EndModuleKeyword, "endmodule"),
         }),
-      L(0, PP::kAlwaysExpand, {N(TK::EndOfFile, "")}),
   };
 
   EXPECT_EQ(snap(lines), expected);

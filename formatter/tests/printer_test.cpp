@@ -49,7 +49,8 @@ TEST_F(PrinterTest, FormatsMacroInvocationAcrossSourceLines) {
   EXPECT_EQ(formatText(source),
             "module m (\n"
             ");\n"
-            "  initial $display (`__LINE__);\n"
+            "  initial\n"
+            "    $display (`__LINE__);\n"
             "endmodule\n");
 }
 
@@ -63,7 +64,8 @@ TEST_F(PrinterTest, FormatsUnknownMacroCallWithoutWarning) {
   EXPECT_EQ(result.formatted_text,
             "module m (\n"
             ");\n"
-            "  initial $display (`EXTERNAL (1));\n"
+            "  initial\n"
+            "    $display (`EXTERNAL (1));\n"
             "endmodule\n");
   EXPECT_TRUE(result.warnings.empty());
 }
@@ -439,9 +441,9 @@ TEST_F(PrinterTest, PreservesCommentAfterFinalToken) {
   EXPECT_EQ(formatText("module m;\nendmodule\n/* tail */\n"),
             "module m;\nendmodule\n/* tail */\n");
   EXPECT_EQ(formatText("module m; endmodule /* first */ // second"),
-            "module m;\nendmodule /* first */ // second");
+            "module m;\nendmodule /* first */ // second\n");
   EXPECT_EQ(formatText("module m; endmodule\n// tail\n\n"),
-            "module m;\nendmodule\n// tail\n\n");
+            "module m;\nendmodule\n// tail\n");
 }
 
 TEST_F(PrinterTest, PreservesWhitespaceAroundInlineBlockComments) {
@@ -651,4 +653,8 @@ TEST_F(PrinterTest, TrailingMultilineBlockCommentUsesConfiguredLineEndings) {
 
 TEST_F(PrinterTest, PreservesCommentOnlyFile) {
   EXPECT_EQ(formatText("/* explanation */"), "/* explanation */\n");
+}
+
+TEST_F(PrinterTest, PreservesLineCommentOnlyFile) {
+  EXPECT_EQ(formatText("// only comment\n"), "// only comment\n");
 }

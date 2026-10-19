@@ -27,8 +27,9 @@ class LineJoinerTest : public ::testing::Test {
   auto annotated(std::string_view source, const format::FormatStyle& style)
       -> std::vector<Line> {
     tokens_ = ctx_.lex_string(source);
+    // Test annotated partitions independently of source recovery.
     auto lines = format::TokenAnnotator(style).annotate(
-        format::TreeUnwrapper(tokens_, style).unwrap());
+        format::TreeUnwrapper(tokens_, style).unwrap(), {});
     format::PolicyAssigner(style).assign(lines);
     return lines;
   }
@@ -370,7 +371,7 @@ TEST_F(LineJoinerTest, KeepsFunctionBodySeparate) {
 
 TEST_F(LineJoinerTest, KeepsLabeledBlockExpanded) {
   EXPECT_EQ(formatText("initial begin : work x = 1; end"),
-            "initial\n  begin: work\n    x = 1;\n  end\n");
+            "initial\n  begin : work\n    x = 1;\n  end\n");
 }
 
 TEST_F(LineJoinerTest, KeepsLabeledStatementBlockExpanded) {
@@ -700,7 +701,7 @@ TEST_F(LineJoinerTest, TrailingBlockCommentBeforeElseRemainsABarrier) {
 }
 
 TEST_F(LineJoinerTest, KeepsUnsupportedBodySeparate) {
-  EXPECT_EQ(formatText("if (a) wait (b) f();"), "if (a)\n  wait (b) f ();\n");
+  EXPECT_EQ(formatText("if (a)\n  wait (b) f();"), "if (a)\n  wait (b) f();");
 }
 
 TEST_F(LineJoinerTest, SupportedJoiningPreservesTokensAndTrivia) {

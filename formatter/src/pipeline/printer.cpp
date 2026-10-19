@@ -40,14 +40,6 @@ class PrintState {
 
   auto appendRaw(std::string_view text) -> void { current_.append(text); }
 
-  auto appendToLastLine(std::string_view text) -> void {
-    if (lines_.empty()) {
-      current_.append(text);
-    } else {
-      lines_.back().text.append(text);
-    }
-  }
-
   auto appendToken(std::string_view text) -> void {
     current_.append(text);
     current_has_code_ = true;
