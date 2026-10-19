@@ -154,6 +154,35 @@ TEST_F(TokenAnnotatorTest, PackageIsAnnotatedWithoutWarnings) {
   EXPECT_TRUE(saw_end_package);
 }
 
+TEST_F(TokenAnnotatorTest, ImportIsAnnotatedWithoutWarnings) {
+  auto result = annotateWithDiagnostics(
+      "module m;\n"
+      "  import test_pkg::*;\n"
+      "endmodule\n");
+  EXPECT_TRUE(result.warnings.empty());
+
+  bool saw_import = false;
+  bool saw_scope = false;
+  for (const auto& line : result.lines) {
+    EXPECT_FALSE(line.is_opaque);
+    for (size_t i = 0; i < line.tokens.size(); ++i) {
+      const auto& token = line.tokens.at(i);
+      EXPECT_NE(token.type, format::TokenType::kUnknown);
+      if (token.type == format::TokenType::kImportKeyword) {
+        saw_import = true;
+      }
+      if (token.token.kind == slang::parsing::TokenKind::DoubleColon) {
+        saw_scope = true;
+        EXPECT_EQ(token.before.spaces_required, 0U);
+        ASSERT_LT(i + 1, line.tokens.size());
+        EXPECT_EQ(line.tokens.at(i + 1).before.spaces_required, 0U);
+      }
+    }
+  }
+  EXPECT_TRUE(saw_import);
+  EXPECT_TRUE(saw_scope);
+}
+
 TEST_F(TokenAnnotatorTest, DirectiveArgumentMustNotBreak) {
   auto lines = annotateTokens("`include \"file.svh\"");
   ASSERT_FALSE(lines.empty());
