@@ -216,6 +216,15 @@ auto TokenAnnotator::determineTokenTypes(
         ft.type = TokenType::kEndPackageKeyword;
         continue;
 
+      case TK::InterfaceKeyword:
+        ft.type = TokenType::kInterfaceKeyword;
+        next_is_module_name = true;
+        continue;
+
+      case TK::EndInterfaceKeyword:
+        ft.type = TokenType::kEndInterfaceKeyword;
+        continue;
+
       case TK::ImportKeyword:
         ft.type = TokenType::kImportKeyword;
         continue;
@@ -533,6 +542,7 @@ auto TokenAnnotator::determineTokenTypes(
       case TK::GenVarKeyword:
       case TK::ReturnKeyword:
       case TK::StaticKeyword:
+      case TK::ImplementsKeyword:
         ft.type = TokenType::kGeneric;
         continue;
 
@@ -751,6 +761,7 @@ auto implBreakPenalty(TokenPair p) -> size_t {
     case TokenType::kEndGenerateKeyword:
     case TokenType::kEndCaseKeyword:
     case TokenType::kEndPackageKeyword:
+    case TokenType::kEndInterfaceKeyword:
       return true;
     default:
       return false;
