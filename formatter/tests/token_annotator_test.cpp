@@ -129,6 +129,31 @@ TEST_F(TokenAnnotatorTest, RecognizedGenericTokensAreNotUnknown) {
   }
 }
 
+TEST_F(TokenAnnotatorTest, PackageIsAnnotatedWithoutWarnings) {
+  auto result = annotateWithDiagnostics(
+      "package p;\n"
+      "  parameter int X = 1;\n"
+      "endpackage\n");
+  EXPECT_TRUE(result.warnings.empty());
+
+  bool saw_package = false;
+  bool saw_end_package = false;
+  for (const auto& line : result.lines) {
+    EXPECT_FALSE(line.is_opaque);
+    for (const auto& token : line.tokens) {
+      EXPECT_NE(token.type, format::TokenType::kUnknown);
+      if (token.type == format::TokenType::kPackageKeyword) {
+        saw_package = true;
+      }
+      if (token.type == format::TokenType::kEndPackageKeyword) {
+        saw_end_package = true;
+      }
+    }
+  }
+  EXPECT_TRUE(saw_package);
+  EXPECT_TRUE(saw_end_package);
+}
+
 TEST_F(TokenAnnotatorTest, DirectiveArgumentMustNotBreak) {
   auto lines = annotateTokens("`include \"file.svh\"");
   ASSERT_FALSE(lines.empty());
