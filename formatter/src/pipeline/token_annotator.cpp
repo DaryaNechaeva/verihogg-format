@@ -220,6 +220,10 @@ auto TokenAnnotator::determineTokenTypes(
         ft.type = TokenType::kImportKeyword;
         continue;
 
+      case TK::ExportKeyword:
+        ft.type = TokenType::kExportKeyword;
+        continue;
+
       case TK::GenerateKeyword:
         ft.type = TokenType::kGenerateKeyword;
         continue;
