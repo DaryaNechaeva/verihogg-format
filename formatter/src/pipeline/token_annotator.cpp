@@ -218,6 +218,10 @@ auto TokenAnnotator::determineTokenTypes(gsl::span<FormatToken> tokens) const
         ft.type = TokenType::kImportKeyword;
         continue;
 
+      case TK::ExportKeyword:
+        ft.type = TokenType::kExportKeyword;
+        continue;
+
       case TK::GenerateKeyword:
         ft.type = TokenType::kGenerateKeyword;
         continue;
