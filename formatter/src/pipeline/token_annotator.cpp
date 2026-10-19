@@ -543,6 +543,7 @@ auto TokenAnnotator::determineTokenTypes(
       case TK::ReturnKeyword:
       case TK::StaticKeyword:
       case TK::ImplementsKeyword:
+      case TK::NewKeyword:
         ft.type = TokenType::kGeneric;
         continue;
 
