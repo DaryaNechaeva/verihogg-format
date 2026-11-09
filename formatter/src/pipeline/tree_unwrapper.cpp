@@ -366,6 +366,7 @@ class SVParser {
                    std::string(construct) +
                    (recovery_enabled_ ? "'; original text preserved"
                                       : "'; original source unavailable"),
+        .construct = std::string(construct),
     });
   }
 
@@ -749,6 +750,7 @@ class SVParser {
         .code = "incompatible-conditional-branches",
         .message = "conditional compilation branches leave incompatible parser "
                    "states; continuing with the first branch structure",
+        .construct = "incompatible conditional compilation branches",
     });
   }
 

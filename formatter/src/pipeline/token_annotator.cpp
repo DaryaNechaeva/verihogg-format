@@ -1033,6 +1033,7 @@ auto TokenAnnotator::annotateWithDiagnostics(
           .code = "invalid-annotation",
           .message = "cannot annotate SystemVerilog line (" + failure->reason +
                      "); original text preserved",
+          .construct = failure->reason,
       });
     }
   }
