@@ -20,7 +20,8 @@ auto printWarning(std::ostream& os, std::string_view path,
 
 // Formats each file with the style already resolved for it: styles[i] is the
 // style for files[i]. With run.check, reports differences without writing
-// files. Returns the number of failed checks in check mode, otherwise warning
+// files. In regular mode, prints per-file status and an end-of-run summary
+// to streams.err. Returns failed check count in check mode, otherwise warning
 // count.
 auto runFormatter(gsl::span<const std::filesystem::path> files,
                   gsl::span<const FormatStyle> styles, const RunConfig& run,
