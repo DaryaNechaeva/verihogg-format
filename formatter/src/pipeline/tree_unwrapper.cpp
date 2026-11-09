@@ -652,6 +652,7 @@ class SVParser {
         Line{.tokens = {},
              .raw_text = std::string(source_.substr(begin, end - begin)),
              .is_opaque = true,
+             .source_offset = begin,
              .case_label_colon = std::nullopt});
     preserved_source_end_ = end;
   }
