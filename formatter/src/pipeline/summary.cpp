@@ -223,13 +223,15 @@ auto buildWrongFormattingUrl() -> std::string {
 
 void printSummary(std::ostream& os, const std::vector<FileReport>& reports,
                   const SummaryConfig& config) {
-  const char* verb = config.inplace ? "written" : "processed";
-  for (const auto& report : reports) {
-    os << "verihogg-format: " << report.path << ' ' << verb;
-    if (!report.constructs.empty()) {
-      os << " (some regions left unchanged)";
+  if (config.file_status) {
+    const char* verb = config.inplace ? "written" : "processed";
+    for (const auto& report : reports) {
+      os << "verihogg-format: " << report.path << ' ' << verb;
+      if (!report.constructs.empty()) {
+        os << " (some regions left unchanged)";
+      }
+      os << ".\n";
     }
-    os << ".\n";
   }
 
   const auto entries = collectEntries(reports);

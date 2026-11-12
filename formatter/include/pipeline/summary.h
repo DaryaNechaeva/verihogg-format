@@ -25,6 +25,7 @@ struct FileReport {
 struct SummaryConfig {
   bool inplace = false;
   bool links = true;
+  bool file_status = true;  // print the per-file "processed"/"written" lines
 };
 
 // application/x-www-form-urlencoded percent-encoding (space becomes '+').
