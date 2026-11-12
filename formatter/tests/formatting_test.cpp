@@ -114,8 +114,9 @@ TEST_F(FormattingTest, IndexOperatorsPreserveTokenBoundaries) {
         formatted_context.lex_string(result.formatted_text);
     ASSERT_EQ(original_tokens.size(), formatted_tokens.size());
     for (size_t i = 0; i < original_tokens.size(); ++i) {
-      EXPECT_EQ(original_tokens[i].kind, formatted_tokens[i].kind);
-      EXPECT_EQ(original_tokens[i].rawText(), formatted_tokens[i].rawText());
+      EXPECT_EQ(original_tokens.at(i).kind, formatted_tokens.at(i).kind);
+      EXPECT_EQ(original_tokens.at(i).rawText(),
+                formatted_tokens.at(i).rawText());
     }
     EXPECT_EQ(formatText(result.formatted_text), result.formatted_text);
   }
