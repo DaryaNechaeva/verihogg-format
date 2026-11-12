@@ -51,6 +51,22 @@ struct Entry {
   return path.substr(pos + 1);
 }
 
+// A shared basename would make the location ambiguous, so reports whose
+// basename occurs more than once are shown with their full path instead.
+[[nodiscard]] auto usesFullPath(const std::vector<FileReport>& reports,
+                                std::string_view base) -> bool {
+  std::size_t matches = 0;
+  for (const auto& report : reports) {
+    if (report.constructs.empty() || baseName(report.path) != base) {
+      continue;
+    }
+    if (++matches > 1) {
+      return true;
+    }
+  }
+  return false;
+}
+
 [[nodiscard]] auto pad(std::string_view text, std::size_t width)
     -> std::string {
   std::string out{text};
@@ -259,7 +275,9 @@ void printSummary(std::ostream& os, const std::vector<FileReport>& reports,
       const std::string label =
           std::to_string(occurrences) +
           (occurrences == 1 ? " occurrence," : " occurrences,");
-      std::string location{baseName(entry.report->path)};
+      const auto base = baseName(entry.report->path);
+      std::string location =
+          usesFullPath(reports, base) ? entry.report->path : std::string{base};
       if (entry.stat->first_line != 0) {
         location += ":" + std::to_string(entry.stat->first_line);
       }
