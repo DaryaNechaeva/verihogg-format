@@ -123,7 +123,8 @@ struct Entry {
 
 // Assembles the issue URL: pre-filled title and environment first, then the
 // aggregated construct lines for as long as the encoded URL stays within the
-// limit (a cut-off list is marked with an ellipsis).
+// limit. Space for the marker is reserved while filling, so a cut-off list is
+// always marked with an ellipsis.
 [[nodiscard]] auto buildIssueUrl(std::string_view prefix,
                                  const std::string& title,
                                  const std::vector<std::string>& constructs)
@@ -134,24 +135,23 @@ struct Entry {
   url += kEnvironmentParam;
   url += percentEncode(environmentBlock());
 
+  const std::string marker = percentEncode("...\n");
+  const std::size_t used = url.size() + kConstructsParam.size();
+  const std::size_t budget = used <= kMaxUrlLength ? kMaxUrlLength - used : 0;
+
   std::string encoded;
-  bool truncated = false;
-  for (const auto& line : constructs) {
-    const std::string part = percentEncode(line);
-    if (url.size() + kConstructsParam.size() + encoded.size() + part.size() >
-        kMaxUrlLength) {
-      truncated = true;
+  for (std::size_t i = 0; i < constructs.size(); ++i) {
+    const std::string part = percentEncode(constructs.at(i));
+    // Keep room for the truncation marker unless this is the last line: if
+    // everything fits, no marker is needed.
+    const std::size_t reserve = i + 1 < constructs.size() ? marker.size() : 0;
+    if (encoded.size() + part.size() + reserve > budget) {
+      if (encoded.size() + marker.size() <= budget) {
+        encoded += marker;
+      }
       break;
     }
     encoded += part;
-  }
-  if (truncated && !encoded.empty()) {
-    const std::string ellipsis = percentEncode("...\n");
-    if (url.size() + kConstructsParam.size() + encoded.size() +
-            ellipsis.size() <=
-        kMaxUrlLength) {
-      encoded += ellipsis;
-    }
   }
   if (!encoded.empty()) {
     url += kConstructsParam;
