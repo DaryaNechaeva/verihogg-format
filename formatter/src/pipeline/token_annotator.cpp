@@ -638,6 +638,17 @@ auto implSpacesRequired(TokenPair p) -> size_t {
       rk == TK::CloseBracket || rk == TK::CloseBrace) {
     return 0;
   }
+  // Compact indices must not merge adjacent operators into ++, --, &&, etc.
+  const auto is_operator = [](TokenType type) {
+    return type == TokenType::kIndexedOperator ||
+           type == TokenType::kUnaryOperator ||
+           type == TokenType::kBinaryOperator;
+  };
+  if ((left.type == TokenType::kIndexedOperator ||
+       right.type == TokenType::kIndexedOperator) &&
+      is_operator(left.type) && is_operator(right.type)) {
+    return 1;
+  }
   if (left.type == TokenType::kUnaryOperator) {
     return 0;
   }

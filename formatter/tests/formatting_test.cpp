@@ -95,6 +95,33 @@ TEST_F(FormattingTest, UnaryOperatorsNormalize) {
 }
 
 // -----------------------------------------------------------------------------
+// Compact indices must preserve separate operator tokens.
+// -----------------------------------------------------------------------------
+TEST_F(FormattingTest, IndexOperatorsPreserveTokenBoundaries) {
+  for (const std::string_view expression :
+       {"i + +j", "i - -j", "i & &mask", "i | |mask", "i + - -j", "i && &mask",
+        "~ &mask", "i * -j", "i ^ ~mask"}) {
+    SCOPED_TRACE(expression);
+    const std::string source =
+        "module m; assign x = data[" + std::string(expression) + "]; endmodule";
+    const auto result = formatResult(source);
+    ASSERT_TRUE(result.warnings.empty());
+
+    LexContext original_context;
+    LexContext formatted_context;
+    const auto original_tokens = original_context.lex_string(source);
+    const auto formatted_tokens =
+        formatted_context.lex_string(result.formatted_text);
+    ASSERT_EQ(original_tokens.size(), formatted_tokens.size());
+    for (size_t i = 0; i < original_tokens.size(); ++i) {
+      EXPECT_EQ(original_tokens[i].kind, formatted_tokens[i].kind);
+      EXPECT_EQ(original_tokens[i].rawText(), formatted_tokens[i].rawText());
+    }
+    EXPECT_EQ(formatText(result.formatted_text), result.formatted_text);
+  }
+}
+
+// -----------------------------------------------------------------------------
 // Ternary: space around '?' and ':'.
 // -----------------------------------------------------------------------------
 TEST_F(FormattingTest, TernaryPreserve) {
