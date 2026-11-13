@@ -77,7 +77,7 @@ module demo (
 endmodule
 ```
 
-The column limit is a layout target, not a guarantee: an unbreakable token or a preserved region can still exceed it. At the default limit of 100, each short branch in this example can join its `if` or `else` header on one line.
+The column limit is a layout target, not a guarantee: an unbreakable token or a preserved region can still exceed it. At the default limit of 100, both branches in this example fit together on one line: `if (a == 8'h00) y = 8'hff; else y = a + 8'h01;`.
 
 ## Command-line use
 
@@ -93,6 +93,8 @@ Multiple file paths are accepted. In preview mode their formatted contents are w
 
 `--check` writes nothing to stdout. It exits with **0** when all supplied files already match the formatter output, and **1** if a file needs formatting, cannot be read, or another error occurs. Normal preview and in-place runs return **0** even when they report unsupported constructs; an execution error returns **1**.
 
+If an input path cannot be found, `--check` reports the error and continues checking the other matched files; the final exit code is still **1**.
+
 ### Diagnostics and issue links
 
 Normal preview and in-place runs write a status line for each processed file to stderr. When there are formatter warnings, an end-of-run summary groups them by construct and file, shows occurrence counts, and points to the first relevant line **in the formatted output**. For example:
@@ -104,9 +106,11 @@ verihogg-format: rtl/demo.sv processed (some regions left unchanged).
   - covergroup  1 occurrence, first at demo.sv:5
 ```
 
-The summary also offers pre-filled GitHub issue links for unsupported constructs and incorrect formatting. The incorrect-formatting link is shown even when there are no warnings, because a user may still notice a formatting mistake. `--no-links` removes the links and their explanatory text while retaining status and warning information. Do not include private source code in an issue without reviewing it first.
+If multiple reported files with warnings share a basename, the summary keeps their full paths in locations such as `first at /project/rtl/demo.sv:5` to distinguish them.
 
-`--check` currently uses its own diagnostics: it prints individual formatter warnings and `Needs formatting: <path>` lines rather than the grouped summary or issue links. Its return code depends on whether files match the formatter output, not on the number of warnings.
+The summary also offers pre-filled GitHub issue links for unsupported constructs and incorrect formatting. In normal preview and in-place runs, the incorrect-formatting link is shown even when there are no warnings, because a user may still notice a formatting mistake. `--no-links` removes the links and their explanatory text while retaining status and warning information. It works in `--check` mode too. Do not include private source code in an issue without reviewing it first.
+
+`--check` prints `Needs formatting: <path>` for files that differ and errors for unreadable files. When there are formatter warnings, it also prints the grouped summary and issue links, without the per-file `processed` or `written` status lines. Without warnings, it omits the summary and links. Summary line numbers refer to the formatted output that would be produced, even though files are not rewritten. The return code depends on whether files match the formatter output and whether errors occurred, not on the number of warnings.
 
 ## Formatting options
 
@@ -118,16 +122,17 @@ These options affect the current formatter:
 | `-i, --indentation_spaces N` | `2` | Spaces per nesting level. |
 | `-w, --wrap_spaces N` | `4` | Extra indentation for continuation lines. |
 | `-b, --line_break_penalty N` | `2` | Cost of adding a line break in layout search. |
-| `-p, --over_column_limit_penalty N` | `100` | Cost of exceeding the column target. |
+| `-p, --over_column_limit_penalty N` | `100` | Overflow penalty used by layout search. |
 | `-t, --line_terminator MODE` | `auto` | `auto`, `lf`, or `crlf`. Currently `auto` emits LF. |
 | `--config PATH` | automatic search | Load one specific YAML configuration file. |
 | `-n, --inplace` | off | Rewrite input files. |
 | `--check` | off | Check without rewriting input files. |
-| `--no-links` | off | Hide GitHub issue links in the normal-run summary. |
+| `--no-links` | off | Hide GitHub issue links in the diagnostic summary, including in `--check`. |
+| `--wrap_end_else_clauses` | off | Put a block-closing `end` and the following `else` on separate lines. |
 
 The formatter currently runs its line-wrap search regardless of the reserved `try_wrap_long_lines` setting. Comments and unsupported regions are preserved rather than reflowed into a new comment style.
 
-The CLI and schema also accept **reserved style options** that are validated and stored but do not yet change output. They include per-context alignment (`port_declarations_alignment`, `assignment_statement_alignment`, and the other `*_alignment` options), per-context indentation (`*_indentation`), `alignment_group_boundary`, and the boolean options `port_declarations_right_align_packed_dimensions`, `port_declarations_right_align_unpacked_dimensions`, `compact_indexing_and_selections`, `class_parameter_space`, `expand_coverpoints`, `try_wrap_long_lines`, and `wrap_end_else_clauses`. See `verihogg-format --help` and the [configuration schema](schemas/verihogg-format.schema.json) for the complete list and allowed values. Boolean CLI options have a `--no_<name>` form to override a true value from a config file.
+The CLI and schema also accept **reserved style options** that are validated and stored but do not yet change output. They include per-context alignment (`port_declarations_alignment`, `assignment_statement_alignment`, and the other `*_alignment` options), per-context indentation (`*_indentation`), `alignment_group_boundary`, and the boolean options `port_declarations_right_align_packed_dimensions`, `port_declarations_right_align_unpacked_dimensions`, `compact_indexing_and_selections`, `class_parameter_space`, `expand_coverpoints`, and `try_wrap_long_lines`. See `verihogg-format --help` and the [configuration schema](schemas/verihogg-format.schema.json) for the complete list and allowed values. Boolean style options, including `wrap_end_else_clauses`, have a `--no_<name>` form to override a true value from a config file.
 
 ## Configuration
 
@@ -197,7 +202,7 @@ cmake --build build
 If Google Test is installed and enabled, CMake requires `SCR1_ROOT` to point to a local [SCR1](https://github.com/syntacore/scr1) checkout. Set it when configuring, then run the unit and integration tests:
 
 ```sh
-cmake -S . -B build -DSCR1_ROOT=/path/to/scr1
+cmake -S . -B build -DCMAKE_DISABLE_FIND_PACKAGE_GTest=FALSE -DSCR1_ROOT=/path/to/scr1
 cmake --build build
 ctest --test-dir build --output-on-failure
 ```
