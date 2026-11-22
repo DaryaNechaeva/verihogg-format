@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>scr1 — VerihoggFormat unsupported constructs</title>
+<style>
+:root {
+  --bg: #0f172a;
+  --panel: #111c34;
+  --panel-2: #162240;
+  --text: #e6edf7;
+  --muted: #8ca0bf;
+  --line: #24345a;
+  --accent: #7c9cff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+header {
+  padding: 28px 32px 20px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, #131f3b, #0f172a);
+}
+header h1 { margin: 0 0 6px; font-size: 26px; }
+header .meta { margin: 0; color: var(--muted); }
+main { padding: 24px 32px 48px; max-width: 1500px; margin: 0 auto; }
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.card .value { font-size: 26px; font-weight: 650; }
+.card .label { color: var(--muted); font-size: 12px; margin-top: 2px; }
+h2 { font-size: 18px; margin: 0 0 10px; }
+.lead { color: var(--muted); margin: 0 0 12px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+th, td {
+  padding: 9px 11px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+thead th {
+  background: var(--panel-2);
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+tbody tr:last-child td { border-bottom: none; }
+.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.muted { color: var(--muted); }
+code {
+  background: #0b1428;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 1px 5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+}
+ul { margin: 0; padding-left: 20px; }
+li { margin: 2px 0; }
+</style>
+</head>
+<body>
+<header><h1>scr1</h1><p class="meta">VerihoggFormat unsupported constructs · generated 2026-11-22 10:07:51 UTC</p></header>
+<main>
+<section class="cards"><div class="card"><div class="value">50</div><div class="label">Files scanned</div></div><div class="card"><div class="value">19</div><div class="label">Files with warnings</div></div><div class="card"><div class="value">16</div><div class="label">Unique constructs</div></div><div class="card"><div class="value">147</div><div class="label">Occurrences</div></div><div class="card"><div class="value">0</div><div class="label">Skipped files</div></div></section>
+<section><h2>Constructs</h2><p class="lead">Grouped from the formatter end-of-run summary. Counts are occurrences; locations point to the first occurrence in each file.</p><table><thead><tr><th>Construct</th><th>Error type</th><th class="num">Count</th><th>Files</th></tr></thead><tbody><tr><td><code>++</code> <span class="muted">DoublePlus</span></td><td class="muted">invalid annotation</td><td class="num">36</td><td><code>src/core/pipeline/scr1_ipic.sv:113</code> <span class="muted">(4)</span><br><code>src/core/pipeline/scr1_pipe_tdu.sv:174</code> <span class="muted">(9)</span><br><code>src/core/scr1_scu.sv:329</code> <span class="muted">(1)</span><br><code>src/includes/scr1_search_ms1.svh:53</code> <span class="muted">(4)</span><br><code>src/tb/scr1_memory_tb_ahb.sv:91</code> <span class="muted">(3)</span><br><code>src/tb/scr1_memory_tb_axi.sv:99</code> <span class="muted">(4)</span><br><code>src/tb/scr1_top_tb_ahb.sv:113</code> <span class="muted">(4)</span><br><code>src/tb/scr1_top_tb_axi.sv:180</code> <span class="muted">(4)</span><br><code>src/top/scr1_dp_memory.sv:92</code> <span class="muted">(1)</span><br><code>src/top/scr1_mem_axi.sv:131</code> <span class="muted">(2)</span></td></tr><tr><td><code>+:</code> <span class="muted">PlusColon</span></td><td class="muted">invalid annotation</td><td class="num">29</td><td><code>src/core/pipeline/scr1_pipe_csr.sv:695</code> <span class="muted">(1)</span><br><code>src/core/scr1_dm.sv:703</code> <span class="muted">(1)</span><br><code>src/tb/scr1_memory_tb_ahb.sv:101</code> <span class="muted">(1)</span><br><code>src/tb/scr1_memory_tb_axi.sv:125</code> <span class="muted">(3)</span><br><code>src/tb/scr1_top_tb_ahb.sv:114</code> <span class="muted">(9)</span><br><code>src/tb/scr1_top_tb_axi.sv:181</code> <span class="muted">(9)</span><br><code>src/top/scr1_dp_memory.sv:43</code> <span class="muted">(5)</span></td></tr><tr><td><code>-:</code> <span class="muted">MinusColon</span></td><td class="muted">invalid annotation</td><td class="num">20</td><td><code>src/core/pipeline/scr1_ipic.sv:115</code> <span class="muted">(3)</span><br><code>src/core/pipeline/scr1_pipe_csr.sv:689</code> <span class="muted">(2)</span><br><code>src/includes/scr1_search_ms1.svh:55</code> <span class="muted">(4)</span><br><code>src/tb/scr1_memory_tb_ahb.sv:92</code> <span class="muted">(3)</span><br><code>src/tb/scr1_top_tb_ahb.sv:146</code> <span class="muted">(4)</span><br><code>src/tb/scr1_top_tb_axi.sv:213</code> <span class="muted">(4)</span></td></tr><tr><td><code>=&gt;</code> <span class="muted">OrEqualsArrow</span></td><td class="muted">invalid annotation</td><td class="num">16</td><td><code>src/core/pipeline/scr1_pipe_csr.sv:1079</code> <span class="muted">(6)</span><br><code>src/core/pipeline/scr1_pipe_ialu.sv:664</code> <span class="muted">(6)</span><br><code>src/core/pipeline/scr1_pipe_ifu.sv:763</code> <span class="muted">(4)</span></td></tr><tr><td><code>automatic</code> <span class="muted">AutomaticKeyword</span></td><td class="muted">invalid annotation</td><td class="num">10</td><td><code>src/core/pipeline/scr1_ipic.sv:88</code> <span class="muted">(2)</span><br><code>src/includes/scr1_search_ms1.svh:25</code> <span class="muted">(2)</span><br><code>src/tb/scr1_memory_tb_axi.sv:87</code> <span class="muted">(2)</span><br><code>src/top/scr1_dmem_ahb.sv:79</code> <span class="muted">(3)</span><br><code>src/top/scr1_mem_axi.sv:77</code> <span class="muted">(1)</span></td></tr><tr><td><code>break</code> <span class="muted">BreakKeyword</span></td><td class="muted">invalid annotation</td><td class="num">10</td><td><code>src/tb/scr1_top_tb_ahb.sv:141</code> <span class="muted">(5)</span><br><code>src/tb/scr1_top_tb_axi.sv:208</code> <span class="muted">(5)</span></td></tr><tr><td><code>based literal wildcard is not supported</code></td><td class="muted">invalid annotation</td><td class="num">8</td><td><code>src/core/pipeline/scr1_pipe_csr.sv:358</code> <span class="muted">(8)</span></td></tr><tr><td><code>conditional operator has no matching colon</code></td><td class="muted">invalid annotation</td><td class="num">6</td><td><code>src/core/pipeline/scr1_pipe_ialu.sv:323</code> <span class="muted">(6)</span></td></tr><tr><td><code>else</code></td><td class="muted">unsupported construct</td><td class="num">4</td><td><code>src/tb/scr1_memory_tb_axi.sv:110</code> <span class="muted">(4)</span></td></tr><tr><td><code>unmatched closing bracket</code></td><td class="muted">invalid annotation</td><td class="num">2</td><td><code>src/core/pipeline/scr1_pipe_exu.sv:672</code> <span class="muted">(2)</span></td></tr><tr><td><code>csr_trace1</code></td><td class="muted">unsupported construct</td><td class="num">1</td><td><code>src/core/pipeline/scr1_tracelog.sv:428</code> <span class="muted">(1)</span></td></tr><tr><td><code>endfunction</code></td><td class="muted">unsupported construct</td><td class="num">1</td><td><code>src/tb/scr1_memory_tb_axi.sv:180</code> <span class="muted">(1)</span></td></tr><tr><td><code>unclosed bracket before statement end</code></td><td class="muted">invalid annotation</td><td class="num">1</td><td><code>src/core/pipeline/scr1_tracelog.sv:68</code> <span class="muted">(1)</span></td></tr><tr><td><code>cover</code> <span class="muted">CoverKeyword</span></td><td class="muted">invalid annotation</td><td class="num">1</td><td><code>src/core/pipeline/scr1_pipe_lsu.sv:320</code> <span class="muted">(1)</span></td></tr><tr><td><code>default</code> <span class="muted">DefaultKeyword</span></td><td class="muted">invalid annotation</td><td class="num">1</td><td><code>src/core/pipeline/scr1_pipe_mprf.sv:138</code> <span class="muted">(1)</span></td></tr><tr><td><code>time</code> <span class="muted">TimeKeyword</span></td><td class="muted">invalid annotation</td><td class="num">1</td><td><code>src/core/pipeline/scr1_tracelog.sv:123</code> <span class="muted">(1)</span></td></tr></tbody></table></section>
+
+<p class="muted">Formatter: <code>verihogg-format</code></p>
+</main>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cheriot-ibex-dv — VerihoggFormat unsupported constructs</title>
+<style>
+:root {
+  --bg: #0f172a;
+  --panel: #111c34;
+  --panel-2: #162240;
+  --text: #e6edf7;
+  --muted: #8ca0bf;
+  --line: #24345a;
+  --accent: #7c9cff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+header {
+  padding: 28px 32px 20px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, #131f3b, #0f172a);
+}
+header h1 { margin: 0 0 6px; font-size: 26px; }
+header .meta { margin: 0; color: var(--muted); }
+main { padding: 24px 32px 48px; max-width: 1500px; margin: 0 auto; }
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.card .value { font-size: 26px; font-weight: 650; }
+.card .label { color: var(--muted); font-size: 12px; margin-top: 2px; }
+h2 { font-size: 18px; margin: 0 0 10px; }
+.lead { color: var(--muted); margin: 0 0 12px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+th, td {
+  padding: 9px 11px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+thead th {
+  background: var(--panel-2);
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+tbody tr:last-child td { border-bottom: none; }
+.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.muted { color: var(--muted); }
+code {
+  background: #0b1428;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 1px 5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+}
+ul { margin: 0; padding-left: 20px; }
+li { margin: 2px 0; }
+</style>
+</head>
+<body>
+<header><h1>cheriot-ibex-dv</h1><p class="meta">VerihoggFormat unsupported constructs · generated 2026-11-22 10:09:20 UTC</p></header>
+<main>
+<section class="cards"><div class="card"><div class="value">40</div><div class="label">Files scanned</div></div><div class="card"><div class="value">35</div><div class="label">Files with warnings</div></div><div class="card"><div class="value">22</div><div class="label">Unique constructs</div></div><div class="card"><div class="value">131</div><div class="label">Occurrences</div></div><div class="card"><div class="value">0</div><div class="label">Skipped files</div></div></section>
+<section><h2>Constructs</h2><p class="lead">Grouped from the formatter end-of-run summary. Counts are occurrences; locations point to the first occurrence in each file.</p><table><thead><tr><th>Construct</th><th>Error type</th><th class="num">Count</th><th>Files</th></tr></thead><tbody><tr><td><code>automatic</code> <span class="muted">AutomaticKeyword</span></td><td class="muted">invalid annotation</td><td class="num">29</td><td><code>common/rvfi/core_ibex_rvfi_if.sv:63</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/clk_if.sv:20</code> <span class="muted">(2)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/pins_if.sv:27</code> <span class="muted">(11)</span><br><code>vendor/lowrisc_ip/dv/sv/dv_utils/dv_test_status_pkg.sv:12</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/str_utils/str_utils_pkg.sv:11</code> <span class="muted">(14)</span></td></tr><tr><td><code>import</code></td><td class="muted">unsupported construct</td><td class="num">16</td><td><code>agents/ibex_testrig_agent/dpi/testrig_dpi.svh:35</code> <span class="muted">(1)</span><br><code>agents/ibex_testrig_agent/ibex_testrig_agent_pkg.sv:6</code> <span class="muted">(1)</span><br><code>cheriot/cheriot_dv_pkg.sv:6</code> <span class="muted">(1)</span><br><code>cheriot/data_mem_model.sv:8</code> <span class="muted">(1)</span><br><code>cheriot/mem_obi_if.sv:7</code> <span class="muted">(1)</span><br><code>common/prim/prim_ram_1p.sv:11</code> <span class="muted">(1)</span><br><code>common/rvfi/ibex_rvfi_pkg.sv:6</code> <span class="muted">(1)</span><br><code>testrig/env/core_ibex_testrig_env_pkg.sv:2</code> <span class="muted">(1)</span><br><code>testrig/tb/core_ibex_testrig_tb_top.sv:4</code> <span class="muted">(1)</span><br><code>testrig/tests/core_ibex_testrig_test.sv:1</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/clk_rst_if.sv:26</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/common_ifs_pkg.sv:7</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/entropy_subsys_fifo_exception_if.sv:23</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/rst_shadowed_if.sv:20</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/dv_utils/dv_utils_pkg.sv:7</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/mem_model/mem_model_pkg.sv:7</code> <span class="muted">(1)</span></td></tr><tr><td><code>endpackage</code> <span class="muted">EndPackageKeyword</span></td><td class="muted">invalid annotation</td><td class="num">12</td><td><code>agents/ibex_testrig_agent/ibex_testrig_agent_pkg.sv:14</code> <span class="muted">(1)</span><br><code>cheriot/cheriot_dv_pkg.sv:152</code> <span class="muted">(1)</span><br><code>common/bus_params_pkg/bus_params_pkg.sv:29</code> <span class="muted">(1)</span><br><code>common/prim/prim_pkg.sv:18</code> <span class="muted">(1)</span><br><code>common/rvfi/ibex_rvfi_pkg.sv:12</code> <span class="muted">(1)</span><br><code>testrig/env/core_ibex_testrig_env_pkg.sv:8</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/common_ifs_pkg.sv:15</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/entropy_subsys_fifo_exception_pkg.sv:18</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/dv_utils/dv_test_status_pkg.sv:31</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/dv_utils/dv_utils_pkg.sv:366</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/mem_model/mem_model_pkg.sv:13</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/str_utils/str_utils_pkg.sv:236</code> <span class="muted">(1)</span></td></tr><tr><td><code>package</code> <span class="muted">PackageKeyword</span></td><td class="muted">invalid annotation</td><td class="num">12</td><td><code>agents/ibex_testrig_agent/ibex_testrig_agent_pkg.sv:5</code> <span class="muted">(1)</span><br><code>cheriot/cheriot_dv_pkg.sv:5</code> <span class="muted">(1)</span><br><code>common/bus_params_pkg/bus_params_pkg.sv:6</code> <span class="muted">(1)</span><br><code>common/prim/prim_pkg.sv:11</code> <span class="muted">(1)</span><br><code>common/rvfi/ibex_rvfi_pkg.sv:5</code> <span class="muted">(1)</span><br><code>testrig/env/core_ibex_testrig_env_pkg.sv:1</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/common_ifs_pkg.sv:5</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/entropy_subsys_fifo_exception_pkg.sv:9</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/dv_utils/dv_test_status_pkg.sv:5</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/dv_utils/dv_utils_pkg.sv:5</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/mem_model/mem_model_pkg.sv:5</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/str_utils/str_utils_pkg.sv:5</code> <span class="muted">(1)</span></td></tr><tr><td><code>::</code> <span class="muted">DoubleColon</span></td><td class="muted">invalid annotation</td><td class="num">8</td><td><code>common/prim/prim_clock_gating.sv:21</code> <span class="muted">(3)</span><br><code>vendor/lowrisc_ip/dv/sv/mem_model/mem_model.sv:5</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/str_utils/str_utils_pkg.sv:154</code> <span class="muted">(4)</span></td></tr><tr><td><code>++</code> <span class="muted">DoublePlus</span></td><td class="muted">invalid annotation</td><td class="num">7</td><td><code>vendor/lowrisc_ip/dv/sv/common_ifs/pins_if.sv:86</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/mem_model/mem_model.sv:54</code> <span class="muted">(2)</span><br><code>vendor/lowrisc_ip/dv/sv/str_utils/str_utils_pkg.sv:13</code> <span class="muted">(4)</span></td></tr><tr><td><code>extends</code> <span class="muted">ExtendsKeyword</span></td><td class="muted">invalid annotation</td><td class="num">7</td><td><code>agents/ibex_testrig_agent/ibex_testrig_agent.sv:23</code> <span class="muted">(1)</span><br><code>agents/ibex_testrig_agent/ibex_testrig_dii_driver.sv:10</code> <span class="muted">(1)</span><br><code>common/rvfi/ibex_rvfi_monitor.sv:5</code> <span class="muted">(1)</span><br><code>common/rvfi/ibex_rvfi_seq_item.sv:5</code> <span class="muted">(1)</span><br><code>testrig/env/core_ibex_testrig_env.sv:1</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/dv_utils/dv_report_catcher.sv:5</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/dv_utils/dv_report_server.sv:6</code> <span class="muted">(1)</span></td></tr><tr><td><code>interface</code> <span class="muted">InterfaceKeyword</span></td><td class="muted">invalid annotation</td><td class="num">7</td><td><code>agents/ibex_testrig_agent/core_ibex_dii_intf.sv:1</code> <span class="muted">(1)</span><br><code>common/rvfi/core_ibex_rvfi_if.sv:6</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/clk_if.sv:11</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/clk_rst_if.sv:15</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/entropy_subsys_fifo_exception_if.sv:9</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/pins_if.sv:10</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/rst_shadowed_if.sv:11</code> <span class="muted">(1)</span></td></tr><tr><td><code>endinterface</code> <span class="muted">EndInterfaceKeyword</span></td><td class="muted">invalid annotation</td><td class="num">6</td><td><code>agents/ibex_testrig_agent/core_ibex_dii_intf.sv:41</code> <span class="muted">(1)</span><br><code>common/rvfi/core_ibex_rvfi_if.sv:66</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/clk_if.sv:29</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/entropy_subsys_fifo_exception_if.sv:59</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/pins_if.sv:113</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/rst_shadowed_if.sv:39</code> <span class="muted">(1)</span></td></tr><tr><td><code>clocking</code></td><td class="muted">unsupported construct</td><td class="num">4</td><td><code>agents/ibex_testrig_agent/core_ibex_dii_intf.sv:9</code> <span class="muted">(1)</span><br><code>common/rvfi/core_ibex_rvfi_if.sv:34</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/common_ifs/clk_if.sv:13</code> <span class="muted">(2)</span></td></tr><tr><td><code>virtual</code></td><td class="muted">unsupported construct</td><td class="num">4</td><td><code>agents/ibex_testrig_agent/ibex_testrig_agent.sv:28</code> <span class="muted">(1)</span><br><code>agents/ibex_testrig_agent/ibex_testrig_dii_driver.sv:28</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/dv_utils/dv_report_server.sv:40</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/dv_utils/dv_vif_wrap.sv:13</code> <span class="muted">(1)</span></td></tr><tr><td><code>super</code></td><td class="muted">unsupported construct</td><td class="num">3</td><td><code>testrig/env/core_ibex_testrig_env.sv:8</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/dv_utils/dv_report_server.sv:14</code> <span class="muted">(2)</span></td></tr><tr><td><code>--</code> <span class="muted">DoubleMinus</span></td><td class="muted">invalid annotation</td><td class="num">3</td><td><code>vendor/lowrisc_ip/dv/sv/mem_model/mem_model.sv:66</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/str_utils/str_utils_pkg.sv:47</code> <span class="muted">(2)</span></td></tr><tr><td><code>inside</code> <span class="muted">InsideKeyword</span></td><td class="muted">invalid annotation</td><td class="num">3</td><td><code>vendor/lowrisc_ip/dv/sv/common_ifs/pins_if.sv:19</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/str_utils/str_utils_pkg.sv:86</code> <span class="muted">(2)</span></td></tr><tr><td><code>protected</code></td><td class="muted">unsupported construct</td><td class="num">2</td><td><code>common/rvfi/ibex_rvfi_monitor.sv:6</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/dv_utils/dv_report_catcher.sv:9</code> <span class="muted">(1)</span></td></tr><tr><td><code>new</code> <span class="muted">NewKeyword</span></td><td class="muted">invalid annotation</td><td class="num">2</td><td><code>vendor/lowrisc_ip/dv/sv/dv_utils/dv_report_server.sv:13</code> <span class="muted">(1)</span><br><code>vendor/lowrisc_ip/dv/sv/str_utils/str_utils_pkg.sv:169</code> <span class="muted">(1)</span></td></tr><tr><td><code>addr</code></td><td class="muted">unsupported construct</td><td class="num">1</td><td><code>vendor/lowrisc_ip/dv/sv/mem_model/mem_model.sv:47</code> <span class="muted">(1)</span></td></tr><tr><td><code>break</code> <span class="muted">BreakKeyword</span></td><td class="muted">invalid annotation</td><td class="num">1</td><td><code>vendor/lowrisc_ip/dv/sv/str_utils/str_utils_pkg.sv:159</code> <span class="muted">(1)</span></td></tr><tr><td><code>$</code> <span class="muted">Dollar</span></td><td class="muted">invalid annotation</td><td class="num">1</td><td><code>vendor/lowrisc_ip/dv/sv/str_utils/str_utils_pkg.sv:80</code> <span class="muted">(1)</span></td></tr><tr><td><code>or</code> <span class="muted">OrKeyword</span></td><td class="muted">invalid annotation</td><td class="num">1</td><td><code>agents/ibex_testrig_agent/core_ibex_dii_intf.sv:27</code> <span class="muted">(1)</span></td></tr><tr><td><code>pull0</code> <span class="muted">Pull0Keyword</span></td><td class="muted">invalid annotation</td><td class="num">1</td><td><code>vendor/lowrisc_ip/dv/sv/common_ifs/pins_if.sv:95</code> <span class="muted">(1)</span></td></tr><tr><td><code>weak0</code> <span class="muted">Weak0Keyword</span></td><td class="muted">invalid annotation</td><td class="num">1</td><td><code>vendor/lowrisc_ip/dv/sv/common_ifs/pins_if.sv:99</code> <span class="muted">(1)</span></td></tr></tbody></table></section>
+
+<p class="muted">Formatter: <code>verihogg-format</code></p>
+</main>
+</body>
+</html>
