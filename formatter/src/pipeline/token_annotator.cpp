@@ -201,6 +201,7 @@ auto TokenAnnotator::determineTokenTypes(
 
       case TK::ClassKeyword:
         ft.type = TokenType::kClassKeyword;
+        next_is_module_name = false;
         continue;
 
       case TK::EndClassKeyword:
